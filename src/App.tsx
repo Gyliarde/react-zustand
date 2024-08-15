@@ -13,6 +13,8 @@ function App() {
 
   // const useUserStoreBase = _useUserStoreBase();
 
+  const { undo, redo, clear } = useUserStore.temporal.getState();
+
   console.log("Render compontents");
 
   const onFinish: FormProps<User>["onFinish"] = (values) => {
@@ -87,6 +89,24 @@ function App() {
         <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
           <Button type="primary" htmlType="submit">
             Salvar
+          </Button>
+        </Form.Item>
+
+        <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
+          <Button onClick={undo} type="default">
+            Desfazer (Ctrl + Z)
+          </Button>
+        </Form.Item>
+
+        <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
+          <Button onClick={redo} type="default">
+            Refazer (Ctrl + Shift + Z)
+          </Button>
+        </Form.Item>
+
+        <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
+          <Button onClick={clear} type="default">
+            Clear track
           </Button>
         </Form.Item>
 

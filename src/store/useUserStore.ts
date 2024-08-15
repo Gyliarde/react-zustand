@@ -3,6 +3,7 @@ import { create, StoreApi, UseBoundStore } from "zustand";
 import { User } from "../UserType";
 import { devtools } from "zustand/middleware";
 import { immer } from "zustand/middleware/immer";
+import { temporal } from "zundo";
 
 type WithSelectors<S> = S extends { getState: () => infer T }
   ? S & { use: { [K in keyof T]: () => T[K] } }

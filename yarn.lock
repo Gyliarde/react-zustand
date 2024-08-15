@@ -4807,7 +4807,8 @@ __metadata:
     typescript-eslint: ^8.0.0
     vite: ^5.4.0
     vitest: ^0.22.1
-    zustand: ^4.5.4
+    zundo: ^2.1.0
+    zustand: ^4.5.5
   languageName: unknown
   linkType: soft
 
@@ -5547,12 +5548,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"use-sync-external-store@npm:1.2.0":
-  version: 1.2.0
-  resolution: "use-sync-external-store@npm:1.2.0"
+"use-sync-external-store@npm:1.2.2":
+  version: 1.2.2
+  resolution: "use-sync-external-store@npm:1.2.2"
   peerDependencies:
     react: ^16.8.0 || ^17.0.0 || ^18.0.0
-  checksum: 5c639e0f8da3521d605f59ce5be9e094ca772bd44a4ce7322b055a6f58eeed8dda3c94cabd90c7a41fb6fa852210092008afe48f7038792fd47501f33299116a
+  checksum: fe07c071c4da3645f112c38c0e57beb479a8838616ff4e92598256ecce527f2888c08febc7f9b2f0ce2f0e18540ba3cde41eb2035e4fafcb4f52955037098a81
   languageName: node
   linkType: hard
 
@@ -5901,11 +5902,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-"zustand@npm:^4.5.4":
-  version: 4.5.4
-  resolution: "zustand@npm:4.5.4"
+"zundo@npm:^2.1.0":
+  version: 2.1.0
+  resolution: "zundo@npm:2.1.0"
+  peerDependencies:
+    zustand: ^4.3.0
+  peerDependenciesMeta:
+    zustand:
+      optional: false
+  checksum: 293be0581e57c93df263f213d7077b1f0d3bcd344be0a6a65cd881932c1abbf8513836e9570de259b837ef4e6ec6cce68df1728abffc2883173fcc6016ce10d9
+  languageName: node
+  linkType: hard
+
+"zustand@npm:^4.5.5":
+  version: 4.5.5
+  resolution: "zustand@npm:4.5.5"
   dependencies:
-    use-sync-external-store: 1.2.0
+    use-sync-external-store: 1.2.2
   peerDependencies:
     "@types/react": ">=16.8"
     immer: ">=9.0.6"
@@ -5917,6 +5930,6 @@ __metadata:
       optional: true
     react:
       optional: true
-  checksum: 8e824aea8b5232f9a719c6d33e016272a0dae8c69a0980a3e2aefbcf2a89379b343af1f2dace340f45f788ec8d8a55a56d037c53498b3b05b91e985d26cae047
+  checksum: 654e47959970bc66bbf2ae80fced7e556dd488e9ee54eb678330cb036ecc7184f4b8c2cae273be28022533622c54ab6339bf3fe30d19236367c5c251b6c6679a
   languageName: node
   linkType: hard
