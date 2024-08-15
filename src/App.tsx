@@ -3,7 +3,7 @@ import { Button, Checkbox, Form, FormProps, Input } from "antd";
 import { User } from "./UserType";
 import CountWithoutRedo from "./CountWithoutRedo";
 import CountWithRedo from "./CountWithRedo";
-import { _useUserStoreBase, useUserStore } from "./store/useUserStore";
+import { useUserStore } from "./store/useUserStore";
 
 function App() {
   const updateUser = useUserStore.use.updateUser();
@@ -13,7 +13,7 @@ function App() {
 
   // const useUserStoreBase = _useUserStoreBase();
 
-  const { undo, redo, clear } = useUserStore.temporal.getState();
+  const { undo , redo , clear } = useUserStore.temporal.getState();
 
   console.log("Render compontents");
 
@@ -93,22 +93,22 @@ function App() {
         </Form.Item>
 
         <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-          <Button onClick={undo} type="default">
+          <Button onClick={() => undo()} type="default">
             Desfazer (Ctrl + Z)
           </Button>
         </Form.Item>
 
-        <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-          <Button onClick={redo} type="default">
+         <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
+          <Button onClick={()=> redo()} type="default">
             Refazer (Ctrl + Shift + Z)
           </Button>
         </Form.Item>
 
         <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-          <Button onClick={clear} type="default">
+          <Button onClick={()=> clear()} type="default">
             Clear track
           </Button>
-        </Form.Item>
+        </Form.Item> 
 
         <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
           <Button onClick={onResetUser} type="default">

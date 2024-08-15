@@ -12,9 +12,10 @@ type WithSelectors<S> = S extends { getState: () => infer T }
 const createSelectors = <S extends UseBoundStore<StoreApi<object>>>(
   _store: S
 ) => {
-  let store = _store as WithSelectors<typeof _store>;
+  const store = _store as WithSelectors<typeof _store>;
   store.use = {};
-  for (let k of Object.keys(store.getState())) {
+  for (const k of Object.keys(store.getState())) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     (store.use as any)[k] = () => store((s) => s[k as keyof typeof s]);
   }
 
@@ -34,16 +35,18 @@ type UserStore = {
 
 export const _useUserStoreBase = create<UserStore>()(
   devtools(
-    immer((set) => ({
-      active: true,
-      user: {},
-      countWithRedo: 0,
-      countWithoutRedo: 0,
-      updateUser: (input: User) => actionUpdateUser(input, set),
-      resetUser: () => actionResetUser(set),
-      incCountWithRedo: () => actionIncCountWithRedo(set),
-      incCountWithoutRedo: () => actionIncCountWithoutRedo(set),
-    }))
+    immer(
+      temporal((set) => ({
+        active: true,
+        user: {},
+        countWithRedo: 0,
+        countWithoutRedo: 0,
+        updateUser: (input: User) => actionUpdateUser(input, set),
+        resetUser: () => actionResetUser(set),
+        incCountWithRedo: () => actionIncCountWithRedo(set),
+        incCountWithoutRedo: () => actionIncCountWithoutRedo(set),
+      }))
+    )
   )
 );
 
