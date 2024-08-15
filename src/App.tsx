@@ -6,7 +6,16 @@ import { useUserStore } from "./store/useUserStore";
 function App() {
   // todo When need i use init ?
 
-  const { updateUser, resetUser } = useUserStore();
+  const {
+    updateUser,
+    resetUser,
+    incCountWithRedo,
+    incCountWithoutRedo,
+    countWithRedo,
+    countWithoutRedo,
+  } = useUserStore();
+
+  console.log("Render compontents");
 
   const onFinish: FormProps<User>["onFinish"] = (values) => {
     console.log("Success:", values);
@@ -55,6 +64,18 @@ function App() {
           rules={[{ required: true, message: "Please input your email!" }]}
         >
           <Input />
+        </Form.Item>
+        <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
+          <Button onClick={incCountWithRedo} type="primary" shape="circle">
+            +
+          </Button>
+          <span> {countWithRedo} Com Controle de Crtl Z </span>
+        </Form.Item>
+        <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
+          <Button onClick={incCountWithoutRedo} type="primary" shape="circle">
+            +
+          </Button>
+          <span> {countWithoutRedo} Sem Controle de Crtl Z </span>
         </Form.Item>
 
         <Form.Item<User>
