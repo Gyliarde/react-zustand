@@ -1,7 +1,7 @@
 import { useUserStore } from "./store/useUserStore";
 
 function CountWithRedo() {
-  const countWithRedo = useUserStore((state) => state.countWithRedo);
+  const countWithRedo = useUserStore.use.countWithRedo();
 
   console.log("render countWithRedo filter subscribe");
 

@@ -1,19 +1,15 @@
 import "./App.css";
 import { Button, Checkbox, Form, FormProps, Input } from "antd";
 import { User } from "./UserType";
+import CountWithoutRedo from "./CountWithoutRedo";
+import CountWithRedo from "./CountWithRedo";
 import { useUserStore } from "./store/useUserStore";
 
 function App() {
-  // todo When need i use init ?
-
-  const {
-    updateUser,
-    resetUser,
-    incCountWithRedo,
-    incCountWithoutRedo,
-    countWithRedo,
-    countWithoutRedo,
-  } = useUserStore();
+  const updateUser = useUserStore.use.updateUser();
+  const resetUser = useUserStore.use.resetUser();
+  const incCountWithRedo = useUserStore.use.incCountWithRedo();
+  const incCountWithoutRedo = useUserStore.use.incCountWithoutRedo();
 
   console.log("Render compontents");
 
@@ -69,13 +65,13 @@ function App() {
           <Button onClick={incCountWithRedo} type="primary" shape="circle">
             +
           </Button>
-          <span> {countWithRedo} Com Controle de Crtl Z </span>
+          <CountWithRedo />
         </Form.Item>
         <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
           <Button onClick={incCountWithoutRedo} type="primary" shape="circle">
             +
           </Button>
-          <span> {countWithoutRedo} Sem Controle de Crtl Z </span>
+          <CountWithoutRedo />
         </Form.Item>
 
         <Form.Item<User>
