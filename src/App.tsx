@@ -3,13 +3,15 @@ import { Button, Checkbox, Form, FormProps, Input } from "antd";
 import { User } from "./UserType";
 import CountWithoutRedo from "./CountWithoutRedo";
 import CountWithRedo from "./CountWithRedo";
-import { useUserStore } from "./store/useUserStore";
+import { _useUserStoreBase, useUserStore } from "./store/useUserStore";
 
 function App() {
   const updateUser = useUserStore.use.updateUser();
   const resetUser = useUserStore.use.resetUser();
   const incCountWithRedo = useUserStore.use.incCountWithRedo();
   const incCountWithoutRedo = useUserStore.use.incCountWithoutRedo();
+
+  // const useUserStoreBase = _useUserStoreBase();
 
   console.log("Render compontents");
 

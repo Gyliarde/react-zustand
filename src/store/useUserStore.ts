@@ -31,7 +31,7 @@ type UserStore = {
   incCountWithoutRedo: () => void;
 };
 
-const _useUserStoreBase = create<UserStore>()(
+export const _useUserStoreBase = create<UserStore>()(
   devtools(
     immer((set) => ({
       active: true,
