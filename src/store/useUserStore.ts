@@ -7,6 +7,8 @@ import { immer } from "zustand/middleware/immer";
 type UserStore = {
   active: boolean;
   user: User;
+  updateUser: (input: User) => void;
+  resetUser: () => void;
 };
 
 export const useUserStore = create<UserStore>()(
@@ -17,6 +19,9 @@ export const useUserStore = create<UserStore>()(
       updateUser: (input: User) => {
         return actionUpdateUser(input, set);
       },
+      resetUser: () => {
+        return actionResetUser(set);
+      },
     }))
   )
 );
@@ -24,6 +29,13 @@ export const useUserStore = create<UserStore>()(
 function actionUpdateUser(input: User, set: StoreApi<UserStore>["setState"]) {
   set((state) => {
     state.user = input;
+    return state;
+  });
+}
+
+function actionResetUser(set: StoreApi<UserStore>["setState"]): void {
+  set((state) => {
+    state.user = {};
     return state;
   });
 }

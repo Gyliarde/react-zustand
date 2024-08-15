@@ -1,10 +1,27 @@
 import "./App.css";
 import { Button, Checkbox, Form, FormProps, Input } from "antd";
 import { User } from "./UserType";
+import { useUserStore } from "./store/useUserStore";
 
 function App() {
+  // todo When need i use init ?
+
+  const { updateUser, resetUser } = useUserStore();
+
   const onFinish: FormProps<User>["onFinish"] = (values) => {
     console.log("Success:", values);
+
+    const user: User = {
+      name: values.name,
+      email: values.email,
+      remember: values.remember,
+    };
+
+    updateUser(user);
+  };
+
+  const onResetUser = () => {
+    resetUser();
   };
 
   const onFinishFailed: FormProps<User>["onFinishFailed"] = (errorInfo) => {
@@ -50,7 +67,13 @@ function App() {
 
         <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
           <Button type="primary" htmlType="submit">
-            Submit
+            Salvar
+          </Button>
+        </Form.Item>
+
+        <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
+          <Button onClick={onResetUser} type="default">
+            Limpar Usuario
           </Button>
         </Form.Item>
       </Form>
