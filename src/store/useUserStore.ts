@@ -4,6 +4,7 @@ import { User } from "../UserType";
 import { devtools } from "zustand/middleware";
 import { immer } from "zustand/middleware/immer";
 import { temporal } from "zundo";
+import { isEqual, throttle } from "lodash";
 
 type WithSelectors<S> = S extends { getState: () => infer T }
   ? S & { use: { [K in keyof T]: () => T[K] } }
@@ -36,16 +37,41 @@ type UserStore = {
 export const _useUserStoreBase = create<UserStore>()(
   devtools(
     immer(
-      temporal((set) => ({
-        active: true,
-        user: {},
-        countWithRedo: 0,
-        countWithoutRedo: 0,
-        updateUser: (input: User) => actionUpdateUser(input, set),
-        resetUser: () => actionResetUser(set),
-        incCountWithRedo: () => actionIncCountWithRedo(set),
-        incCountWithoutRedo: () => actionIncCountWithoutRedo(set),
-      }))
+      temporal(
+        (set) => ({
+          active: true,
+          user: {},
+          countWithRedo: 0,
+          countWithoutRedo: 0,
+          updateUser: (input: User) => actionUpdateUser(input, set),
+          resetUser: () => actionResetUser(set),
+          incCountWithRedo: () => actionIncCountWithRedo(set),
+          incCountWithoutRedo: () => actionIncCountWithoutRedo(set),
+        }),
+        {
+          partialize: (state) => {
+            const { countWithRedo } = state;
+            return { countWithRedo };
+          },
+          limit: 5,
+          equality: (pastState, currentState) =>
+            isEqual(pastState, currentState),
+          onSave: (state) => console.log("saved", state),
+          handleSet: (handleSet) =>
+            throttle<typeof handleSet>(
+              (
+                state:
+                  | UserStore
+                  | Partial<UserStore>
+                  | ((state: UserStore) => UserStore | Partial<UserStore>)
+              ) => {
+                console.info("handleSet called");
+                handleSet(state);
+              },
+              1000
+            ),
+        }
+      )
     )
   )
 );
